@@ -8,13 +8,14 @@ const updateUserInfo = async (req, res) => {
   const { phone, skype, birthday, email, userName } = req.body;
 
   if (userName) {
-    const user = await User.find({ userName });
+    const user = await User.findOne({ userName });
     if (user) {
+      console.log(user);
       throw HttpError(409, "User with this user name already exists");
     }
   }
   if (email) {
-    const user = await User.find({ email });
+    const user = await User.findOne({ email });
     if (user) {
       throw HttpError(409, "User with this email already exists");
     }
