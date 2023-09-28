@@ -32,6 +32,6 @@ authRouter.patch(
   validateBody(updateUserJoiSchema),
   updateUserInfo
 );
-authRouter.patch("/refresh", authenticateRefresh, refresh);
+authRouter.post("/refresh", authenticateRefresh, refresh);
 
 module.exports = authRouter;
