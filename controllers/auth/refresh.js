@@ -1,4 +1,4 @@
-const { generateTokens, createResponse } = require("../../helpers/index");
+const { generateTokens } = require("../../helpers/index");
 const { User } = require("../../models/auth");
 
 const refresh = async (req, res) => {
@@ -12,7 +12,12 @@ const refresh = async (req, res) => {
     refreshToken,
   };
 
-  createResponse(res, 200, "Tokens refreshed", data);
+  res.status(200).json({
+    status: "success",
+    code: 200,
+    message: "Tokens refreshed",
+    data,
+  });
 };
 
 module.exports = refresh;
