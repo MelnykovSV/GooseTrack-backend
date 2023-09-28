@@ -27,6 +27,7 @@ const registerUser = async (req, res) => {
 
   await User.findByIdAndUpdate(_id, {
     accessToken,
+    refreshToken,
   });
 
   res.status(201).json({
@@ -35,6 +36,7 @@ const registerUser = async (req, res) => {
     message: "New user created",
     data: {
       accessToken,
+      refreshToken,
       user: {
         userName,
         email,
