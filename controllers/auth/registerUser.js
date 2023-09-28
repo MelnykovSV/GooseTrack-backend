@@ -1,7 +1,7 @@
 const { HttpError } = require("../../helpers/index");
 const bcrypt = require("bcrypt");
 const { User } = require("../../models/auth");
-const { generateToken } = require("../../helpers/tokenHandlers");
+const { generateTokens } = require("../../helpers/tokenHandlers");
 const { nanoid } = require("nanoid");
 
 require("dotenv").config();
@@ -23,8 +23,8 @@ const registerUser = async (req, res) => {
     verificationCode,
   });
 
-  const accessToken = generateToken(_id);
-  
+  const { accessToken, refreshToken } = generateTokens(_id);
+
   await User.findByIdAndUpdate(_id, {
     accessToken,
   });
