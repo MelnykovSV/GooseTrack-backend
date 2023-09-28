@@ -1,8 +1,8 @@
 const HttpError = require("./../helpers/HttpError");
-const { validateAccessToken } = require("./../helpers/tokenHandlers");
+const { validateRefreshToken } = require("./../helpers/tokenHandlers");
 
 const { User } = require("./../models/auth");
-const authenticate = async (req, res, next) => {
+const authenticateRefresh = async (req, res, next) => {
   try {
     const [bearer = "", token = ""] = req.headers.authorization.split(" ");
 
@@ -10,11 +10,11 @@ const authenticate = async (req, res, next) => {
       throw HttpError(401, "Not authorized");
     }
 
-    const { id } = validateAccessToken(token);
+    const { id } = validateRefreshToken(token);
 
     const user = await User.findById(id);
 
-    if (!user || !user.accessToken || user.accessToken !== token) {
+    if (!user || !user.refreshToken || user.refreshToken !== token) {
       throw HttpError(401, "Not authorized");
     }
 
@@ -26,4 +26,4 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-module.exports = authenticate;
+module.exports = authenticateRefresh;
