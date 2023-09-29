@@ -11,7 +11,6 @@ const authenticate = async (req, res, next) => {
     }
 
     const { id } = validateAccessToken(token);
-
     const user = await User.findById(id);
 
     if (!user || !user.accessToken || user.accessToken !== token) {

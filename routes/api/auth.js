@@ -5,6 +5,7 @@ const {
   authenticate,
   validateBody,
   authenticateRefresh,
+  uploadCloud,
 } = require("./../../middlewares/index");
 
 const {
@@ -14,6 +15,7 @@ const {
   getCurrentUser,
   updateUserInfo,
   refresh,
+  updateAvatar,
 } = require("./../../controllers/auth");
 
 const {
@@ -33,5 +35,11 @@ authRouter.patch(
   updateUserInfo
 );
 authRouter.post("/refresh", authenticateRefresh, refresh);
+authRouter.patch(
+  "/avatar",
+  authenticate,
+  uploadCloud.single("avatar"),
+  updateAvatar
+);
 
 module.exports = authRouter;

@@ -1,6 +1,5 @@
 const { HttpError } = require("../../helpers/index");
 const { User } = require("../../models/auth");
-require("dotenv").config();
 
 const updateUserInfo = async (req, res) => {
   const user = req.user;
