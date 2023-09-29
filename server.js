@@ -1,6 +1,8 @@
 const app = require("./app");
 const mongoose = require("mongoose");
 
+const swaggerUi = require("swagger-ui-express");
+
 const { DB_HOST } = process.env;
 
 mongoose.set("strictQuery", true);
