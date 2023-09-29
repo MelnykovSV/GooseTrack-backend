@@ -1,20 +1,30 @@
-const mongoose = require("mongoose");
-
-const taskSchema = new mongoose.Schema({
+// Схема для місячного перегляду
+const monthlyTaskSchema = {
   title: {
     type: String,
     required: true,
-  },
-  description: {
-    type: String,
-    required: false,
+    maxlength: 250,
   },
   month: {
     type: String,
     required: true,
   },
-});
+};
 
-const Task = mongoose.model("Task", taskSchema);
+// Схема для денного перегляду
+const dailyTaskSchema = {
+  title: {
+    type: String,
+    required: true,
+    maxlength: 250,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
+};
 
-module.exports = Task;
+module.exports = {
+  monthlyTaskSchema,
+  dailyTaskSchema,
+};

@@ -1,6 +1,11 @@
 const Joi = require("joi");
 
-const taskSchema = Joi.object({
+const monthlyTaskSchema = Joi.object({
+  title: Joi.string().max(250).required(),
+  month: Joi.string().required(),
+});
+
+const dailyTaskSchema = Joi.object({
   title: Joi.string().max(250).required(),
   start: Joi.string()
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/)
@@ -14,4 +19,7 @@ const taskSchema = Joi.object({
   category: Joi.string().valid("to-do", "in-progress", "done").required(),
 });
 
-module.exports = { taskSchema };
+module.exports = {
+  monthlyTaskSchema,
+  dailyTaskSchema,
+};

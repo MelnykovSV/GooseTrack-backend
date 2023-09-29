@@ -1,19 +1,18 @@
 const express = require("express");
 const tasksRouter = express.Router();
 
+const { authenticate } = require("./../../middlewares/index");
 const {
-  authenticate,
-} = require("./../../middlewares/index");
-
-
-const {
-  getTasks, 
-  createTask, 
-  updateTask, 
-  deleteTask, 
+  getTasksByMonth,
+  getTasksByDay,
+  createTask,
+  updateTask,
+  deleteTask,
 } = require("./../../controllers/tasks");
 
-tasksRouter.get("/tasks", authenticate, getTasks)
+tasksRouter.get("/tasks/month", authenticate, getTasksByMonth);
+
+tasksRouter.get("/tasks/day", authenticate, getTasksByDay);
 
 tasksRouter.post("/tasks", validateTaskSchema, authenticate, createTask);
 

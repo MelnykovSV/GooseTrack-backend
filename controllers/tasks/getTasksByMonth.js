@@ -1,4 +1,4 @@
-const { taskSchema } = require("../../middlewares/validateForm");
+const { monthlyTaskSchema } = require("../../middlewares/validateForm");
 
 const getTasks = async (req, res, next) => {
   const month = req.query.month;

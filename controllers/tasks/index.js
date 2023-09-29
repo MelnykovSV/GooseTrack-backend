@@ -1,11 +1,13 @@
 const { ctrlWrapper } = require("../../helpers/index");
-const getTasks = require("./getTasks");
+const getTasksByMonth = require("./getTasksByMonth");
+const getTasksByDay = require("./getTasksByDay");
 const postTask = require("./postTask");
 const patchTask = require("./patchTask");
-const deleteTask = require("./deleteTask");
+const deleteTask = require("./deleteTasks");
 
 module.exports = {
-  registerUser: ctrlWrapper(getTasks),
+  registerUser: ctrlWrapper(getTasksByMonth),
+  registerUser: ctrlWrapper(getTasksByDay),
   loginUser: ctrlWrapper(postTask),
   logoutUser: ctrlWrapper(patchTask),
   getCurrentUser: ctrlWrapper(deleteTask),
