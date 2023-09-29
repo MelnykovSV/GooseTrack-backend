@@ -11,11 +11,11 @@ const getAllReviews = async (req, res) => {
   const responseData = {
     code: 200,
     message: "Reviews found",
-    data: result.map(review => ({
+    data: result.map((review) => ({
       rating: review.rating,
       comment: review.comment,
       userName: review.userName,
-      _id: review._id
+      _id: review._id,
     })),
   };
 
