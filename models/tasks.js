@@ -1,5 +1,7 @@
-// Схема для місячного перегляду
-const monthlyTaskSchema = {
+const { Schema, model } = require("mongoose");
+const Joi = require("joi");
+
+const monthlyTaskSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -9,10 +11,9 @@ const monthlyTaskSchema = {
     type: String,
     required: true,
   },
-};
+});
 
-// Схема для денного перегляду
-const dailyTaskSchema = {
+const dailyTaskSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -22,9 +23,12 @@ const dailyTaskSchema = {
     type: Date,
     required: true,
   },
-};
+});
+
+const MonthlyTask = model("MonthlyTask", monthlyTaskSchema);
+const DailyTask = model("DailyTask", dailyTaskSchema);
 
 module.exports = {
-  monthlyTaskSchema,
-  dailyTaskSchema,
+  MonthlyTask,
+  DailyTask,
 };

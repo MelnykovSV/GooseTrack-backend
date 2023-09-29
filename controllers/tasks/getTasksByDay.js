@@ -1,4 +1,5 @@
-const { dailyTaskSchema } = require("../../middlewares/validateForm");
+const { DailyTask } = require("../../models/tasks");
+const { HttpError } = require("../../helpers");
 
 const getTasksByDay = async (req, res, next) => {
   const date = req.query.date;

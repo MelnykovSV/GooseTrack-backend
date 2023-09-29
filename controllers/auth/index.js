@@ -4,7 +4,7 @@ const loginUser = require("./loginUser");
 const logoutUser = require("./logoutUser");
 const getCurrentUser = require("./getCurrentUser");
 const updateUserInfo = require("./updateUserInfo");
-const tasks = require("./tasks");
+const refresh = require("./refresh");
 
 module.exports = {
   registerUser: ctrlWrapper(registerUser),
