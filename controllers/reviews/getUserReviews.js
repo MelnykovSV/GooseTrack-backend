@@ -13,11 +13,18 @@ const getUserReviews = async (req, res) => {
     throw HttpError(404, "No user review found");
   }
 
-  res.json({
+  const responseData = {
     code: 200,
     message: "User review",
-    data: result,
-  });
+    data: {
+      rating: result.rating,
+      comment: result.comment,
+      userName: result.userName,
+      _id: result._id
+    },
+  };
+
+  res.json(responseData);
 };
 
 module.exports = getUserReviews;

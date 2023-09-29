@@ -19,17 +19,25 @@ const addReview = async (req, res) => {
     throw HttpError(409, "Your review is already in our database");
   }
 
-  const review = await Review.create({ ...req.body, owner, userName });
+  const reviewData = { ...req.body, owner, userName };
+  const review = await Review.create(reviewData);
 
   if (!review) {
     throw HttpError(500, "Internal Server Error (failed to create a review)");
   }
 
-  res.status(201).json({
+  const responseData = {
     code: 200,
     message: "Review added",
-    data: review,
-  });
+    data: {
+      rating: reviewData.rating,
+      comment: reviewData.comment,
+      userName: reviewData.userName,
+      _id: review._id
+    },
+  };
+
+  res.status(201).json(responseData);
 };
 
 module.exports = addReview;

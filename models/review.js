@@ -44,7 +44,7 @@ const updateReviewSchema = Joi.object({
     .max(5)
     .integer()
     .required()
-    .error(new Error("missing required review text field")),
+    .error(new Error("missing required review rating value(min:0;max:5)")),
 
   comment: Joi.string()
     .required()

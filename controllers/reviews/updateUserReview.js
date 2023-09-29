@@ -7,14 +7,26 @@ const updateUserReviews = async (req, res) => {
     throw HttpError(400, "Owner of review is missing");
   }
 
-  const result = await Review.findOneAndUpdate({ owner }, req.body, {
+  const reviewData = await Review.findOneAndUpdate({ owner }, req.body, {
     new: true,
   });
-  if (!result) {
+  if (!reviewData) {
     throw HttpError(404, "Not found");
   }
 
-  res.json(result);
+  const responseData = {
+    code: 200,
+    message: "Review updated",
+    data: {
+      rating: reviewData.rating,
+      comment: reviewData.comment,
+      userName: reviewData.userName,
+      _id: reviewData._id
+    },
+  };
+
+  res.status(200).json(responseData);
 };
 
+ 
 module.exports = updateUserReviews;
