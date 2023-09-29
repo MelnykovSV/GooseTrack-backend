@@ -8,12 +8,16 @@ const getUserReviews = async (req, res) => {
     throw HttpError(400, "Owner of review is missing");
   }
 
-  const result = await Review.find({ owner });
-  if (result.length === 0) {
-    throw HttpError(404, "Reviews are not found");
+  const result = await Review.findOne({ owner });
+  if (!result) {
+    throw HttpError(404, "No user review found");
   }
 
-  res.json(result);
+  res.json({
+    code: 200,
+    message: "User review",
+    data: result,
+  });
 };
 
 module.exports = getUserReviews;

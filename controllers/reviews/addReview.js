@@ -25,7 +25,11 @@ const addReview = async (req, res) => {
     throw HttpError(500, "Internal Server Error (failed to create a review)");
   }
 
-  res.status(201).json(review);
+  res.status(201).json({
+    code: 200,
+    message: "Review added",
+    data: review,
+  });
 };
 
 module.exports = addReview;

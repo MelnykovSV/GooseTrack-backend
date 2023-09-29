@@ -8,7 +8,11 @@ const getAllReviews = async (req, res) => {
     throw HttpError(404, "Reviews are not found");
   }
 
-  res.status(200).json(result);
+  res.status(200).json({
+    code: 200,
+    message: "Reviews found",
+    data: result,
+  });
 };
 
 module.exports = getAllReviews;

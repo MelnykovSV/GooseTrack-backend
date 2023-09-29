@@ -31,7 +31,6 @@ const registerUser = async (req, res) => {
   });
 
   res.status(201).json({
-    status: "success",
     code: 201,
     message: "New user created",
     data: {

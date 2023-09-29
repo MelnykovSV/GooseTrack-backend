@@ -32,7 +32,6 @@ const updateUserInfo = async (req, res) => {
   }
 
   res.status(200).json({
-    status: "success",
     code: 200,
     message: "User info updated",
     data: { phone, skype, birthday, email, userName },
