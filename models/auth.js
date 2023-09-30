@@ -73,13 +73,8 @@ const registerJoiSchema = Joi.object({
 });
 
 const loginJoiSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp, "email").required(),
-  password: Joi.string()
-    .pattern(
-      passwordRegexp,
-      "Password should contain at least 1 capital letter, 1 normal letter and 1 number"
-    )
-    .required(),
+  email: Joi.string().required(),
+  password: Joi.string().required(),
 });
 
 const updateUserJoiSchema = Joi.object({
