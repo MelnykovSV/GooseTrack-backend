@@ -15,18 +15,8 @@ const {
 } = require("./../../controllers/tasks");
 
 router.post("/", authenticate, validateBody(createTaskJoiSchema), createTask);
-router.get(
-  "/getByDay/:day",
-  authenticate,
-  getTasksByDay
-  //   validateBody(createTaskJoiSchema),
-);
-router.get(
-  "/getByMonth/:month",
-  authenticate,
-  getTasksByMonth
-  //   validateBody(createTaskJoiSchema),
-);
+router.get("/getByDay/:day", authenticate, getTasksByDay);
+router.get("/getByMonth/:month", authenticate, getTasksByMonth);
 router.patch(
   "/:taskId",
   authenticate,

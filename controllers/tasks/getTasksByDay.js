@@ -1,4 +1,4 @@
-// const { HttpError } = require("../../helpers/index");
+const { HttpError } = require("../../helpers/index");
 const { Task } = require("./../../models/task");
 
 const getTasksByDay = async (req, res) => {
@@ -10,11 +10,9 @@ const getTasksByDay = async (req, res) => {
     "-owner -createdAt -updatedAt"
   );
 
-  //   console.log(tasks);
-
-  //   if (!tasks.length) {
-  //     throw HttpError(404);
-  //   }
+  if (!tasks.length) {
+    throw HttpError(404, "No tasks found");
+  }
 
   res.status(201).json({
     code: 201,

@@ -1,8 +1,5 @@
 const { HttpError } = require("../../helpers/index");
 const { Task } = require("./../../models/task");
-// const { nanoid } = require("nanoid");
-
-// require("dotenv").config();
 
 const getTasksByMonth = async (req, res) => {
   const user = req.user;
@@ -19,7 +16,7 @@ const getTasksByMonth = async (req, res) => {
   );
 
   if (!tasks.length) {
-    throw HttpError(404, "Task not found");
+    throw HttpError(404, "No tasks found");
   }
 
   res.status(201).json({
