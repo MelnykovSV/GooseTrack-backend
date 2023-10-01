@@ -2,7 +2,7 @@ const { Review } = require("../../models/review");
 const { HttpError } = require("../../helpers");
 
 const getAllReviews = async (req, res) => {
-  const result = await Review.find();
+  const result = await Review.aggregate([{ $sample: { size: 6 } }]);
 
   if (result.length === 0) {
     throw HttpError(404, "Reviews are not found");
