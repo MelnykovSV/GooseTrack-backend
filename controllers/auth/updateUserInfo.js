@@ -4,31 +4,38 @@ const { User } = require("../../models/auth");
 const updateUserInfo = async (req, res) => {
   const user = req.user;
 
-  const { phone, skype, birthday, email, userName } = req.body;
-
-  if (userName) {
-    const user = await User.findOne({ userName });
-    if (user) {
-      console.log(user);
+  if (req.body.userName) {
+    const foundUser = await User.findOne({ userName: req.body.userName });
+    if (foundUser && !foundUser._id.equals(user._id)) {
       throw HttpError(409, "User with this user name already exists");
     }
   }
-  if (email) {
-    const user = await User.findOne({ email });
-    if (user) {
+  if (req.body.email) {
+    const foundUser = await User.findOne({ email: req.body.email });
+    if (foundUser && !foundUser._id.equals(user._id)) {
       throw HttpError(409, "User with this email already exists");
     }
   }
-  console.log(req.body);
-  const response = await User.findByIdAndUpdate(
-    user._id,
-    { phone, skype, birthday, email, userName },
-    { new: true }
-  );
+
+  const dbRequestBody = Object.keys(req.body).reduce((attrs, key) => {
+    if (!req.body[key]) {
+      return { ...attrs };
+    } else {
+      return { ...attrs, [key]: req.body[key] };
+    }
+  }, {});
+
+  console.log(dbRequestBody);
+
+  const response = await User.findByIdAndUpdate(user._id, dbRequestBody, {
+    new: true,
+  });
 
   if (!response) {
     throw HttpError(404, "Not found");
   }
+
+  const { phone, skype, birthday, email, userName } = response;
 
   res.status(200).json({
     code: 200,

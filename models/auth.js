@@ -78,9 +78,9 @@ const loginJoiSchema = Joi.object({
 });
 
 const updateUserJoiSchema = Joi.object({
-  birthday: Joi.string().pattern(dateRegexp, "YYYY-MM-DD"),
-  phone: Joi.string(),
-  skype: Joi.string(),
+  birthday: Joi.string().pattern(dateRegexp, "YYYY-MM-DD").allow(""),
+  phone: Joi.string().allow(""),
+  skype: Joi.string().allow(""),
   email: Joi.string().pattern(emailRegexp, "email"),
   userName: Joi.string().pattern(
     userNameRegexp,
