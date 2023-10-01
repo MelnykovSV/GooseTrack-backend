@@ -14,7 +14,7 @@ const generateTokens = (id) => {
     id,
   };
   const accessToken = jwt.sign(payload, SECRET_ACCESS_KEY, {
-    expiresIn: "15m",
+    expiresIn: "1d",
   });
   const refreshToken = jwt.sign(payload, SECRET_REFRESH_KEY, {
     expiresIn: "30d",

@@ -25,8 +25,6 @@ const updateUserInfo = async (req, res) => {
     }
   }, {});
 
-  console.log(dbRequestBody);
-
   const response = await User.findByIdAndUpdate(user._id, dbRequestBody, {
     new: true,
   });

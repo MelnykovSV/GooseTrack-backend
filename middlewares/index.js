@@ -1,13 +1,14 @@
-const isValidId = require("./isValidId");
+const { isValidTaskId, isValidReviewId } = require("./isValidId");
 const validateBody = require("./validateBody");
 const authenticate = require("./authenticate");
 const authenticateRefresh = require("./authenticateRefresh");
 const uploadCloud = require("./uploadCloud");
 
 module.exports = {
-  isValidId,
+  isValidTaskId,
   validateBody,
   authenticate,
   authenticateRefresh,
+  isValidReviewId,
   uploadCloud,
 };

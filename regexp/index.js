@@ -1,5 +1,10 @@
 const { userNameRegexp, passwordRegexp } = require("./auth");
-const { emailRegexp, dateRegexp, timeRegexp } = require("./common");
+const {
+  emailRegexp,
+  dateRegexp,
+  timeRegexp,
+  monthRegexp,
+} = require("./common");
 
 module.exports = {
   userNameRegexp,
@@ -7,4 +12,5 @@ module.exports = {
   emailRegexp,
   dateRegexp,
   timeRegexp,
+  monthRegexp,
 };

@@ -1,15 +1,20 @@
 const { HttpError } = require("../../helpers/index");
 const { Task } = require("./../../models/task");
+const { monthRegexp } = require("./../../regexp");
 
 const getTasksByMonth = async (req, res) => {
   const user = req.user;
   const month = req.params.month;
 
-  const monthRegExp = new RegExp(`^${month}`);
+  if (!monthRegexp.test(month)) {
+    throw HttpError(400, "Date has to be in format 'YYYY-MM'");
+  }
+
+  const dbMonthRegExp = new RegExp(`^${month}`);
 
   const tasks = await Task.find(
     {
-      date: { $regex: monthRegExp, $options: "i" },
+      date: { $regex: dbMonthRegExp, $options: "i" },
       owner: user._id,
     },
     "-owner -createdAt -updatedAt"

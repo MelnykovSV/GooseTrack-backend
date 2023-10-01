@@ -5,6 +5,7 @@ const {
   createTaskJoiSchema,
   updateTaskJoiSchema,
 } = require("./../../models/task");
+const { isValidTaskId } = require("./../../middlewares/index");
 
 const {
   createTask,
@@ -20,9 +21,10 @@ router.get("/getByMonth/:month", authenticate, getTasksByMonth);
 router.patch(
   "/:taskId",
   authenticate,
+  isValidTaskId,
   validateBody(updateTaskJoiSchema),
   updateTask
 );
-router.delete("/:taskId", authenticate, deleteTask);
+router.delete("/:taskId", authenticate, isValidTaskId, deleteTask);
 
 module.exports = router;

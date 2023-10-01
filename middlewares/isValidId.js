@@ -1,13 +1,20 @@
 const { isValidObjectId } = require("mongoose");
 const { HttpError } = require("../helpers");
 
-function isValidId(req, res, next) {
-
-  const { contactId } = req.params;
-  if (!isValidObjectId(contactId)) {
-    next(HttpError(400, `${contactId} is not valid id`));
+function isValidTaskId(req, res, next) {
+  const { taskId } = req.params;
+  if (!isValidObjectId(taskId)) {
+    next(HttpError(400, `${taskId} is not valid id`));
   }
   next();
 }
 
-module.exports = isValidId;
+function isValidReviewId(req, res, next) {
+  const { reviewId } = req.params;
+  if (!isValidObjectId(reviewId)) {
+    next(HttpError(400, `${reviewId} is not valid id`));
+  }
+  next();
+}
+
+module.exports = { isValidTaskId, isValidReviewId };

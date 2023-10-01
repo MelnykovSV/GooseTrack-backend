@@ -1,9 +1,16 @@
 const { HttpError } = require("../../helpers/index");
 const { Task } = require("./../../models/task");
 
+const { dateRegexp } = require("./../../regexp");
+
 const getTasksByDay = async (req, res) => {
   const user = req.user;
+
   const day = req.params.day;
+
+  if (!dateRegexp.test(day)) {
+    throw HttpError(400, "Date has to be in format 'YYYY-MM-DD'");
+  }
 
   const tasks = await Task.find(
     { date: day, owner: user._id },
