@@ -44,7 +44,7 @@ const userSchema = new Schema(
       default: null,
     },
     phone: {
-      type: Number,
+      type: String,
       default: null,
     },
     skype: {
@@ -79,7 +79,7 @@ const loginJoiSchema = Joi.object({
 
 const updateUserJoiSchema = Joi.object({
   birthday: Joi.string().pattern(dateRegexp, "YYYY-MM-DD"),
-  phone: Joi.number(),
+  phone: Joi.string(),
   skype: Joi.string(),
   email: Joi.string().pattern(emailRegexp, "email"),
   userName: Joi.string().pattern(
