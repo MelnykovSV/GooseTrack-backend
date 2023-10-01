@@ -1,23 +1,30 @@
 const express = require("express");
 const tasksRouter = express.Router();
 
-const { authenticate } = require("./../../middlewares/index");
+
 const {
-  getTasksByMonth,
-  getTasksByDay,
+  fetchCollectionTasksByMonth,
+  fetchCollectionTasksByDay,
   createTask,
   updateTask,
   deleteTask,
-} = require("./../../controllers/tasks");
+} = require("../../controllers/tasks");
 
-tasksRouter.get("/tasks/month", authenticate, getTasksByMonth);
+const {
+  authenticate,
+  findTaskById,
+  validateBody,
+} = require("../../middlewares");
 
-tasksRouter.get("/tasks/day", authenticate, getTasksByDay);
 
-tasksRouter.post("/tasks", validateTaskSchema, authenticate, createTask);
+tasksRouter.get("/tasks/month", authenticate, validateBody, fetchCollectionTasksByMonth);
 
-tasksRouter.patch("/tasks/:id", validateTaskSchema, authenticate, updateTask);
+tasksRouter.get("/tasks/day", authenticate, validateBody, fetchCollectionTasksByDay);
 
-tasksRouter.delete("/tasks/:id", authenticate, deleteTask);
+tasksRouter.post("/tasks", authenticate, validateBody, createTask);
+
+tasksRouter.patch("/tasks/:id", authenticate, findTaskById, updateTask);
+
+tasksRouter.delete("/tasks/:id", authenticate, findTaskById, deleteTask);
 
 module.exports = tasksRouter;

@@ -1,12 +1,11 @@
-const { MonthlyTask } = require("../../models/tasks");
-const { HttpError } = require("../../helpers");
+const MonthlyTask = require("../../models/tasks");
 
-const getTasks = async (req, res, next) => {
+const fetchCollectionTasksByMonth = async (req, res, next) => {
   const month = req.query.month;
 
   if (!month) {
     res.status(400).json({ message: "Parameter 'month' is required." });
-    return;
+    return await MonthlyTask.find();;
   }
 
   const tasksCollection = generateTasksForMonth(month);
@@ -23,4 +22,4 @@ function generateTasksForMonth(month) {
   return tasksForMonth;
 }
 
-module.exports = getTasks;
+module.exports = fetchCollectionTasksByMonth;

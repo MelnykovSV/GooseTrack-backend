@@ -1,12 +1,11 @@
-const { DailyTask } = require("../../models/tasks");
-const { HttpError } = require("../../helpers");
+const DailyTask = require('../../models/tasks');
 
 const getTasksByDay = async (req, res, next) => {
   const date = req.query.date;
 
   if (!date) {
     res.status(400).json({ message: "Parameter 'date' is required." });
-    return;
+    return await DailyTask();
   }
 
   const tasksCollection = generateTasksForDay(date);

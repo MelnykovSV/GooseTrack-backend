@@ -1,7 +1,9 @@
+const UpdateTask = require('../../models/tasks')
+
 const { MonthlyTask, DailyTask } = require("../../models/tasks");
 const { HttpError } = require("../../helpers");
 
-const patchTask = async (req, res, next) => {
+const updateTask = async (req, res, next) => {
   try {
     const taskId = parseInt(req.params.id);
     const updatedData = req.body;
@@ -25,6 +27,7 @@ const patchTask = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+  return await UpdateTask;
 };
 
-module.exports = patchTask;
+module.exports = updateTask;

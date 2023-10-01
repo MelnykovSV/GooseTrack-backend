@@ -1,7 +1,9 @@
+const CreateTask = require('../../models/tasks');
+
 const { MonthlyTask, DailyTask } = require("../../models/tasks");
 const { HttpError } = require("../../helpers");
 
-const postTask = async (req, res, next) => {
+const createTask = async (req, res, next) => {
   try {
     const newTask = req.body;
     const validationResult = taskSchema.validate(newTask);
@@ -17,6 +19,7 @@ const postTask = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+  return await CreateTask.create();
 };
 
-module.exports = postTask;
+module.exports = createTask;
