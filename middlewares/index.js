@@ -1,4 +1,4 @@
-const { isValidTaskId, isValidReviewId } = require("./isValidId");
+const { isValidTaskId } = require("./isValidId");
 const validateBody = require("./validateBody");
 const authenticate = require("./authenticate");
 const authenticateRefresh = require("./authenticateRefresh");
@@ -9,6 +9,5 @@ module.exports = {
   validateBody,
   authenticate,
   authenticateRefresh,
-  isValidReviewId,
   uploadCloud,
 };
