@@ -1,5 +1,6 @@
 const { HttpError } = require("../../helpers/index");
 const { User } = require("../../models/auth");
+const { Review } = require("../../models/review");
 
 const updateUserInfo = async (req, res) => {
   const user = req.user;
@@ -17,6 +18,8 @@ const updateUserInfo = async (req, res) => {
     }
   }
 
+  const usersReview = await Review.findOne({ owner: req.user._id });
+
   const dbRequestBody = Object.keys(req.body).reduce((attrs, key) => {
     if (!req.body[key]) {
       return { ...attrs };
@@ -33,6 +36,13 @@ const updateUserInfo = async (req, res) => {
     throw HttpError(404, "Not found");
   }
 
+  if (usersReview) {
+    console.log(usersReview);
+    await Review.findOneAndUpdate(
+      { owner: req.user._id },
+      { userName: req.body.userName }
+    );
+  }
   const { phone, skype, birthday, email, userName } = response;
 
   res.status(200).json({

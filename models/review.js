@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const { handleMongooseError } = require("../helpers");
 
-const reviewSchema = Schema(
+const reviewSchema = new Schema(
   {
     rating: {
       type: Number,
@@ -20,6 +20,10 @@ const reviewSchema = Schema(
     userName: {
       type: String,
       description: "Name of reviewer",
+    },
+    avatarUrl: {
+      type: String,
+      description: "Avatar of reviewer",
     },
     owner: {
       type: Schema.Types.ObjectId,

@@ -20,13 +20,10 @@ const updateUserReviews = async (req, res) => {
     data: {
       rating: reviewData.rating,
       comment: reviewData.comment,
-      userName: reviewData.userName,
-      _id: reviewData._id
     },
   };
 
   res.status(200).json(responseData);
 };
 
- 
 module.exports = updateUserReviews;

@@ -16,6 +16,7 @@ const getAllReviews = async (req, res) => {
       comment: review.comment,
       userName: review.userName,
       _id: review._id,
+      avatarUrl: review.avatarUrl,
     })),
   };
 

@@ -4,6 +4,7 @@ const { Review } = require("../../models/review");
 const addReview = async (req, res) => {
   const owner = req.user.id;
   const userName = req.user.userName;
+  const avatarUrl = req.user.avatarUrl;
 
   if (!owner) {
     throw HttpError(400, "Owner of review is missing");
@@ -19,7 +20,7 @@ const addReview = async (req, res) => {
     throw HttpError(409, "Your review is already in our database");
   }
 
-  const reviewData = { ...req.body, owner, userName };
+  const reviewData = { ...req.body, owner, userName, avatarUrl };
   const review = await Review.create(reviewData);
 
   if (!review) {
@@ -27,13 +28,11 @@ const addReview = async (req, res) => {
   }
 
   const responseData = {
-    code: 200,
+    code: 201,
     message: "Review added",
     data: {
       rating: reviewData.rating,
       comment: reviewData.comment,
-      userName: reviewData.userName,
-      _id: review._id
     },
   };
 

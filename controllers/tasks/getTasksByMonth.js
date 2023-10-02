@@ -26,7 +26,7 @@ const getTasksByMonth = async (req, res) => {
 
   res.status(200).json({
     code: 200,
-    message: "Task updated",
+    message: `Tasks for ${month}`,
     data: tasks,
   });
 };

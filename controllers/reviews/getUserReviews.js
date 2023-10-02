@@ -19,8 +19,6 @@ const getUserReviews = async (req, res) => {
     data: {
       rating: result.rating,
       comment: result.comment,
-      userName: result.userName,
-      _id: result._id
     },
   };
 
