@@ -1,0 +1,466 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "2.0.2",
+    "title": "Swagger test",
+    "description": "Showing off swagger-ui-express",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{ "url": "http://localhost:3000" }],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Tasks",
+      "description": "Tasks endpoints"
+    },
+    {
+      "name": "Reviews",
+      "description": "Reviews endpoints"
+    }
+  ],
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "security": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Email or User name already in use",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "parameters": [],
+        "security": [],
+        "requestBody": {
+          "description": "Login object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get current user info",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/user": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "Update user info",
+        "parameters": [],
+        "security": [],
+        "requestBody": {
+          "description": "User info object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserInfoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserInfoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["userName", "email", "password"],
+        "properties": {
+          "userName": {
+            "type": "string",
+            "description": "User name",
+            "example": "user6"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Aa111111"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": 201,
+            "message": "New user created",
+            "data": {
+              "accessToken": {
+                "type": "string",
+                "description": "accessToken",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWFjZGM4YjZlODU4NGU5MmZiOWUyMiIsImlhdCI6MTY5NjI1NTQzMywiZXhwIjoxNjk2MzQxODMzfQ.WTGaaSUbW1iSazgyzuXqm0qcE1EETgcCo3clGfAiaEE"
+              },
+              "refreshToken": {
+                "type": "string",
+                "description": "refreshToken",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWFjZGM4YjZlODU4NGU5MmZiOWUyMiIsImlhdCI6MTY5NjI1NTQzMywiZXhwIjoxNjk4ODQ3NDMzfQ.1gle8J8dORelUaG3EOiM3iBo246x1TDmA3Q8cAUpGQU"
+              },
+              "user": {
+                "userName": {
+                  "type": "string",
+                  "description": "User name",
+                  "example": "user6"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "User's email",
+                  "format": "email"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "code": 201,
+          "message": "New user created",
+          "data": {
+            "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWFjZGM4YjZlODU4NGU5MmZiOWUyMiIsImlhdCI6MTY5NjI1NTQzMywiZXhwIjoxNjk2MzQxODMzfQ.WTGaaSUbW1iSazgyzuXqm0qcE1EETgcCo3clGfAiaEE",
+            "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWFjZGM4YjZlODU4NGU5MmZiOWUyMiIsImlhdCI6MTY5NjI1NTQzMywiZXhwIjoxNjk4ODQ3NDMzfQ.1gle8J8dORelUaG3EOiM3iBo246x1TDmA3Q8cAUpGQU",
+            "user": {
+              "userName": "user6",
+              "email": "user6@gmail.com"
+            }
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Aa111111"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": 200,
+            "message": "User signed in",
+            "data": {
+              "accessToken": {
+                "type": "string",
+                "description": "accessToken",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWFjZGM4YjZlODU4NGU5MmZiOWUyMiIsImlhdCI6MTY5NjI1NTQzMywiZXhwIjoxNjk2MzQxODMzfQ.WTGaaSUbW1iSazgyzuXqm0qcE1EETgcCo3clGfAiaEE"
+              },
+              "refreshToken": {
+                "type": "string",
+                "description": "refreshToken",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWFjZGM4YjZlODU4NGU5MmZiOWUyMiIsImlhdCI6MTY5NjI1NTQzMywiZXhwIjoxNjk4ODQ3NDMzfQ.1gle8J8dORelUaG3EOiM3iBo246x1TDmA3Q8cAUpGQU"
+              },
+              "user": {
+                "userName": {
+                  "type": "string",
+                  "description": "User name",
+                  "example": "user6"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "User's email",
+                  "format": "email"
+                },
+                "avatarUrl": {
+                  "type": "string",
+                  "description": "Avatar URL",
+                  "example": "http://res.cloudinary.com/dzrvw6uic/image/upload/c_fill,h_250,w_250/o1uwlh4unrflqcvedam6.jpg"
+                },
+                "birthday": {
+                  "type": "string",
+                  "description": "Users birthday",
+                  "example": "1992-10-11"
+                },
+                "phone": {
+                  "type": "string",
+                  "description": "Users birthday",
+                  "example": "1234561144"
+                },
+                "skype": {
+                  "type": "string",
+                  "description": "Users skype",
+                  "example": "SomeName"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "code": 200,
+          "message": "User signed in",
+          "data": {
+            "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTZkNTUxYjJjY2E5YmMyMzRlYTlmZSIsImlhdCI6MTY5NjI1NjQyMSwiZXhwIjoxNjk2MzQyODIxfQ.D1UTvDuN9uaZ3Op71Le183fiHEzywXkDAfzPQsFYxX0",
+            "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTZkNTUxYjJjY2E5YmMyMzRlYTlmZSIsImlhdCI6MTY5NjI1NjQyMSwiZXhwIjoxNjk4ODQ4NDIxfQ.II2S-PufqYZGNkdSUlc_yESF2z8Pjmd-VGBsgcN8F4Y",
+            "user": {
+              "userName": "user___1",
+              "email": "user1@gmail.com",
+              "avatarUrl": "http://res.cloudinary.com/dzrvw6uic/image/upload/c_fill,h_250,w_250/o1uwlh4unrflqcvedam6.jpg",
+              "birthday": "1992-10-11",
+              "phone": "1234561144",
+              "skype": "SomeName"
+            }
+          }
+        }
+      },
+      "CurrentUserResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": 200,
+            "message": "User signed in",
+            "data": {
+              "user": {
+                "userName": {
+                  "type": "string",
+                  "description": "User name",
+                  "example": "user6"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "User's email",
+                  "format": "email"
+                },
+                "avatarUrl": {
+                  "type": "string",
+                  "description": "Avatar URL",
+                  "example": "http://res.cloudinary.com/dzrvw6uic/image/upload/c_fill,h_250,w_250/o1uwlh4unrflqcvedam6.jpg"
+                },
+                "birthday": {
+                  "type": "string",
+                  "description": "Users birthday",
+                  "example": "1992-10-11"
+                },
+                "phone": {
+                  "type": "string",
+                  "description": "Users birthday",
+                  "example": "1234561144"
+                },
+                "skype": {
+                  "type": "string",
+                  "description": "Users skype",
+                  "example": "SomeName"
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "code": 200,
+          "message": "User signed in",
+          "data": {
+            "user": {
+              "userName": "user___1",
+              "email": "user1@gmail.com",
+              "avatarUrl": "http://res.cloudinary.com/dzrvw6uic/image/upload/c_fill,h_250,w_250/o1uwlh4unrflqcvedam6.jpg",
+              "birthday": "1992-10-11",
+              "phone": "1234561144",
+              "skype": "SomeName"
+            }
+          }
+        }
+      },
+      "UpdateUserInfoRequest": {
+        "type": "object",
+        "required": [],
+        "properties": {
+          "userName": {
+            "type": "string",
+            "description": "User name",
+            "example": "user6"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone",
+            "example": "1111111111"
+          },
+          "skype": {
+            "type": "string",
+            "description": "User's skype",
+            "example": "SomeName"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday date",
+            "example": "1995-10-10"
+          }
+        }
+      },
+      "UpdateUserInfoResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": 200,
+            "message": "User info updated",
+            "data": {
+              "userName": {
+                "type": "string",
+                "description": "User name",
+                "example": "user123"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "birthday": {
+                "type": "string",
+                "description": "Users birthday",
+                "example": "1995-10-10"
+              },
+              "phone": {
+                "type": "string",
+                "description": "Users birthday",
+                "example": "1111111111"
+              },
+              "skype": {
+                "type": "string",
+                "description": "Users skype",
+                "example": "SomeName"
+              }
+            }
+          }
+        },
+        "example": {
+          "code": 200,
+          "message": "User signed in",
+          "data": {
+            "phone": "1111111111",
+            "skype": "SomeName",
+            "birthday": "1995-10-10",
+            "email": "user1@gmail.com",
+            "userName": "user123"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

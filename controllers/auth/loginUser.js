@@ -15,7 +15,8 @@ const loginUser = async (req, res) => {
     throw HttpError(401, "Email or password invalid");
   }
 
-  const { _id, email, subscription, userName, password, avatarURL } = user;
+  const { _id, email, userName, password, avatarUrl, birthday, phone, skype } =
+    user;
 
   const isPasswordCorrect = await bcrypt.compare(loginPassword, password);
 
@@ -38,8 +39,11 @@ const loginUser = async (req, res) => {
       user: {
         userName,
         email,
-        subscription,
-        avatarURL,
+
+        avatarUrl,
+        birthday,
+        phone,
+        skype,
       },
     },
   });

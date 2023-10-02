@@ -1,6 +1,7 @@
 const express = require("express");
 const authRouter = express.Router();
 
+
 const {
   authenticate,
   validateBody,
@@ -41,5 +42,7 @@ authRouter.patch(
   uploadCloud.single("avatar"),
   updateAvatar
 );
+
+
 
 module.exports = authRouter;
