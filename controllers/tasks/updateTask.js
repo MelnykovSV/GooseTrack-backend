@@ -19,8 +19,8 @@ const updateTask = async (req, res) => {
 
   const { _id, title, priority, status, date, start, end } = task;
 
-  res.status(201).json({
-    code: 201,
+  res.status(200).json({
+    code: 200,
     message: "Task updated",
     data: { _id, title, priority, status, date, start, end },
   });

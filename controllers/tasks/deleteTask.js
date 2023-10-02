@@ -13,8 +13,8 @@ const deleteTask = async (req, res) => {
 
   const { _id, title, priority, status, date, start, end } = task;
 
-  res.status(201).json({
-    code: 201,
+  res.status(200).json({
+    code: 200,
     message: "Task deleted",
     data: { _id, title, priority, status, date, start, end },
   });

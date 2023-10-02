@@ -24,8 +24,8 @@ const getTasksByMonth = async (req, res) => {
     throw HttpError(404, "No tasks found");
   }
 
-  res.status(201).json({
-    code: 201,
+  res.status(200).json({
+    code: 200,
     message: "Task updated",
     data: tasks,
   });
