@@ -11,12 +11,12 @@ const deleteTask = async (req, res) => {
     throw HttpError(404, "Task not found");
   }
 
-  const { title, priority, status, date, start, end } = task;
+  const { _id, title, priority, status, date, start, end } = task;
 
   res.status(201).json({
     code: 201,
     message: "Task deleted",
-    data: { title, priority, status, date, start, end },
+    data: { _id, title, priority, status, date, start, end },
   });
 };
 
