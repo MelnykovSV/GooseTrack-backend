@@ -160,6 +160,91 @@
           }
         }
       }
+    },
+    "/api/auth/avatar": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "Update user avatar",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "User info object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAvatarRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateAvatarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/refresh": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Get new pait of tokens (Use 'Bearer {refreshToken}')",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Logot user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
@@ -452,6 +537,82 @@
             "email": "user1@gmail.com",
             "userName": "user123"
           }
+        }
+      },
+      "UpdateAvatarRequest": {
+        "type": "object",
+        "properties": {
+          "avatar": {
+            "type": "file"
+          }
+        }
+      },
+      "UpdateAvatarResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": 200,
+            "message": "User avatar updated",
+            "data": {
+              "avatarUrl": {
+                "type": "string",
+                "description": "User avatar url",
+                "example": "http://res.cloudinary.com/dzrvw6uic/image/upload/c_fill,h_250,w_250/tiqbnrjcaxsgn4lvxbiz.jpg"
+              }
+            }
+          }
+        },
+        "example": {
+          "code": 200,
+          "message": "User avatar updated",
+          "data": {
+            "avatarUrl": "http://res.cloudinary.com/dzrvw6uic/image/upload/c_fill,h_250,w_250/tiqbnrjcaxsgn4lvxbiz.jpg"
+          }
+        }
+      },
+      "RefreshResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": 200,
+            "message": "Tokens refreshed",
+            "data": {
+              "accessToken": {
+                "type": "string",
+                "description": "accessToken",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWFjZGM4YjZlODU4NGU5MmZiOWUyMiIsImlhdCI6MTY5NjI1NTQzMywiZXhwIjoxNjk2MzQxODMzfQ.WTGaaSUbW1iSazgyzuXqm0qcE1EETgcCo3clGfAiaEE"
+              },
+              "refreshToken": {
+                "type": "string",
+                "description": "refreshToken",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MWFjZGM4YjZlODU4NGU5MmZiOWUyMiIsImlhdCI6MTY5NjI1NTQzMywiZXhwIjoxNjk4ODQ3NDMzfQ.1gle8J8dORelUaG3EOiM3iBo246x1TDmA3Q8cAUpGQU"
+              }
+            }
+          }
+        },
+        "example": {
+          "code": 200,
+          "message": "Tokens refreshed",
+          "data": {
+            "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTZkNTUxYjJjY2E5YmMyMzRlYTlmZSIsImlhdCI6MTY5NjI1ODgxNiwiZXhwIjoxNjk2MzQ1MjE2fQ.DZ-52VVtySdRWbvBMvshy7E1P8UCXVYGqafMTkTlvdQ",
+            "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTZkNTUxYjJjY2E5YmMyMzRlYTlmZSIsImlhdCI6MTY5NjI1ODgxNiwiZXhwIjoxNjk4ODUwODE2fQ.3IIk5iy-waPGUTY5Wy-qqODQe3KKPfdt0YuMss7z9Ww"
+          }
+        }
+      },
+      "LogoutResponse": {
+        "type": "object",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": 200,
+            "message": "Logout success"
+          }
+        },
+        "example": {
+          "code": 200,
+          "message": "Logout success"
         }
       }
     },
