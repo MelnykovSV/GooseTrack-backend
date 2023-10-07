@@ -17,9 +17,9 @@ const getTasksByDay = async (req, res) => {
     "-owner -createdAt -updatedAt"
   );
 
-  if (!tasks.length) {
-    throw HttpError(404, "No tasks found");
-  }
+  // if (!tasks.length) {
+  //   throw HttpError(404, "No tasks found");
+  // }
 
   res.status(200).json({
     code: 200,
