@@ -21,7 +21,7 @@ const updateUserInfo = async (req, res) => {
   const usersReview = await Review.findOne({ owner: req.user._id });
 
   const dbRequestBody = Object.keys(req.body).reduce((attrs, key) => {
-    if (!req.body[key]) {
+    if (req.body[key] === undefined) {
       return { ...attrs };
     } else {
       return { ...attrs, [key]: req.body[key] };
